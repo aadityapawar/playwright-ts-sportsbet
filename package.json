@@ -1,0 +1,19 @@
+{
+  "name": "playwright-ts-sportsbet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test" : "npx playwright test",
+    "report" : "npx allure serve allure-results",
+    "test-report" : "npm run test && npm run report"
+  },
+  "keywords": [],
+  "author": "Aditya",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.41.2",
+    "@types/node": "^20.11.19",
+    "allure-playwright": "^2.12.2"
+  }
+}
