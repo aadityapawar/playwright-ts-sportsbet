@@ -32,43 +32,40 @@ export default class RaceCardPage {
 
   async getRandomBets(noOfBets: number, totalAvailableBets: number) {
     const bets: number[] = [];
-    let previousBet = -1;
+    while (bets.length < noOfBets) {
+      const bet = Math.floor(Math.random() * totalAvailableBets);
 
-    for (let i = 0; i < noOfBets; i++) {
-      let bet: number | undefined = undefined;
-
-      do {
-        bet = Math.floor(Math.random() * totalAvailableBets);
-      } while (bet === previousBet);
-
-      if (typeof bet === 'number') {
+      if (!bets.includes(bet)) {
         bets.push(bet);
-        previousBet = bet;
       }
     }
+
     return bets;
   }
 
-  async placeBets(noOfBets: number, homepage: SbHomePage) {
+  async placeBets(noOfBets: number, homepage: SbHomePage) : Promise<string[]> {
     let betsName: string[] = [];
     if ((await this.outcomeSuspended()) || (await this.CheckRaceHasStarted())) {
       await this.home().click();
       await homepage.clickSecondCard();
     }
+    await expect(this.betWinPrice().first()).toBeVisible();
     const count = await this.betWinPrice().evaluateAll(
       (elements) => elements.length
     );
     let bets: number[] = await this.getRandomBets(noOfBets, count);
     for (let i = 0; i < noOfBets; i++) {
-      const firstBetPrice: Locator = this.betWinPrice().nth(bets[i]);
-      const firstBetName: Locator = this.betWinName().nth(bets[i]);
-
-      await firstBetPrice.click();
-      let text1 = await firstBetName.innerText();
-      betsName.push(text1);
+      await expect(this.betWinPrice().first()).toBeEnabled();
+      const betPrice: Locator = this.betWinPrice().nth(bets[i]);
+      const betName: Locator = this.betWinName().nth(bets[i]);
+      await expect(betPrice).toBeVisible();
+      await betPrice.click();
+      let name = await betName.innerText();
+      betsName.push(name);
 
       if (i === 0) {
-        await this.closeBetSlip().click();
+        await expect(this.closeBetSlip()).toBeVisible();
+        await this.closeBetSlip().click({ force: true });
       }
     }
     return betsName;
@@ -82,7 +79,7 @@ export default class RaceCardPage {
     return await this.raceHasStarted().isVisible();
   }
 
-  async assertBetsInBetSlip(betsName: string[], noOfBets: number) {
+  async assertBetsInBetSlip(betsName: string[], noOfBets: number): Promise<void> {
     await this.betSlipWindow().click();
     await expect(this.betSlipTitle()).toHaveCount(noOfBets);
 

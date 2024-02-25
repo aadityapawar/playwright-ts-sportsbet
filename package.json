@@ -1,12 +1,13 @@
 {
   "name": "playwright-ts-sportsbet",
   "version": "1.0.0",
-  "description": "",
+  "description": "playwright-ts-sportsbet",
   "main": "index.js",
   "scripts": {
-    "test" : "npx playwright test",
-    "report" : "npx allure serve allure-results",
-    "test-report" : "npm run test && npm run report"
+    "pretest": "rimraf allure-results/*",
+    "test": "COMMON_CONFIG_FILE=env/common.env npx playwright test",
+    "posttest": "npx allure serve allure-results",
+    "test:headed" : "COMMON_CONFIG_FILE=env/common.env npx playwright test --headed"
   },
   "keywords": [],
   "author": "Aditya",
@@ -14,6 +15,8 @@
   "devDependencies": {
     "@playwright/test": "^1.41.2",
     "@types/node": "^20.11.19",
-    "allure-playwright": "^2.12.2"
+    "allure-playwright": "^2.12.2",
+    "dotenv": "^16.4.5",
+    "rimraf": "^5.0.5"
   }
 }
