@@ -2,9 +2,9 @@
 
 ## Overview: 
 
-This framework is designed using playwright tool with typescript. 
+This framework is designed using playwright test automation tool with typescript. 
 It uses page object model + fixture capability in playwright. 
-Current there is only onbe type of test which is placing the bets in first avaiable card and assert in betSlip.
+Currently there is only one type of test which is placing the bets in first available racecard and assert in betSlip.
 
 ### Steps to run test:
 
@@ -29,8 +29,8 @@ Current there is only onbe type of test which is placing the bets in first avaia
 ### Assumptions 
 
  - Browser Height is assumed to be 720 pixel
- - Place bets function is written for placing multiple bets which generate random   unique bets from the vaiable options. 
- - If race outcome is suspecded or race already started it test is navigating back to home page and trying next card to place the bets 
+ - Place bets function is written for placing multiple bets which generate random unique bets from the available bets option. 
+ - If race outcome is suspended or race already started then the test is navigating back to home page and trying next card to place the bets.
  - There are extra tests to place multiple bets which is not given in the instructions but just added to run them parallelly. 
  - Only chromium browser is enabled in playwright config
 
@@ -41,10 +41,10 @@ Current there is only onbe type of test which is placing the bets in first avaia
  - Loggers can be added for more debugging
  - global set up and teardown can be implemented
  - Running test in different test enviornments can be implemented
- - We can configure all the pages links and assert them as we navigate through the pages.
+ - We can configure all the pages urls and assert them as we navigate through the pages.
  - As framework grows, we can add small utils and methods to handle scenarios in placeBets.
 
 ### Problems encountered and possible solution approach
- - Element locators are dynamic in nature for responsive browser dimention e.g. for width 420 pixel, we can make it more robust by controller class which detects browser size and use the element locators accordingly.
+ - Element locators are dynamic in nature for responsive browser dimention e.g. for width 420 pixel, we can make it more robust by controller class which detects browser size and use element locators accordingly.
 
  - As we don't know what horse races are happening on which we are going to place bets so it is cureently handled at the runtime and make it more suitable as per the requirements. 
