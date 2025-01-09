@@ -4,7 +4,7 @@
 
 This framework is designed using playwright test automation tool with typescript. 
 It uses page object model + fixture capability in playwright. 
-Currently there is only one type of test which is placing the bets in first available racecard and assert in betSlip
+Currently there is only one type of test which is placing the bets in first available racecard and assert in betSlip.
 
 ### Steps to run test:
 
